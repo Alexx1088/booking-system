@@ -50,11 +50,11 @@ php artisan l5-swagger:generate
 
 ## REST API Методы
 
-GET   /api/resources - получение списка всех ресурсов
-POST  /api/resources - cоздание ресурса 
-POST  /api/bookings  - cоздание бронирования
-GET   /api/resources/{id}/bookings - получение всех бронирований для ресурса
-DELETE /api/bookings/{id} - отмена бронирования
+GET   /api/resources - получение списка всех ресурсов  
+POST  /api/resources - cоздание ресурса   
+POST  /api/bookings  - cоздание бронирования  
+GET   /api/resources/{id}/bookings - получение всех бронирований для ресурса  
+DELETE /api/bookings/{id} - отмена бронирования  
 
 ## Тестирование
 
