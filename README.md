@@ -29,9 +29,9 @@ docker-compose up --build -d
 
 ### 4. Проверить настройки базы данных и убедится, что они соответствуют данным из docker-compose.yml
 
-### 5. Выполнить миграции
+### 5. Выполнить миграции и заполнить базу данных данными:
 
-docker exec -it management php artisan migrate
+docker exec -it management php artisan migrate --seed
 
 ### 6. Администрирование базы данных (веб-приложение Adminer):
 
