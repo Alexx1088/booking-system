@@ -1,71 +1,112 @@
-# Разработка системы управления бронированием ресурсов
-Данный проект включает в себя RESTful API для системы управления бронированием ресурсов. Например, у нас есть различные ресурсы 
-(например, комнаты, автомобили и т.д.), которые можно бронировать на определённое время. 
+# Resource Booking Management System
 
-## Требования к проекту
+A backend service providing a RESTful API for managing resource bookings in a time-based manner.  
+The system is designed to handle real-world booking scenarios for various resource types such as meeting rooms, vehicles, equipment, and other reservable assets.
+
+The project focuses on clean API design, data consistency, and extensibility, and can serve as a foundation for larger scheduling or reservation platforms.
+
+---
+
+## Key Features
+
+- RESTful API for managing resources and bookings
+- Time-based booking validation to prevent conflicts
+- Database seeding for quick local setup
+- Observer-based event handling for booking lifecycle events
+- Swagger (OpenAPI) documentation
+- Automated tests for core business logic
+- Fully containerized development environment using Docker
+
+---
+
+## Tech Stack
 
 - PHP 8.2
 - Laravel 11
 - MySQL 8
+- Docker & Docker Compose
 - Composer
-- Docker
+- Swagger (l5-swagger)
 
-## Установка и запуск через Docker
+---
 
-### 1. Склонируйте репозиторий, установите зависимости:
+## Project Setup (Docker)
 
+### 1. Clone the repository and install dependencies
+```bash
 git clone https://github.com/Alexx1088/booking-system.git
-
-установить зависимости через Composer, сгенерировать application key:
+cd booking-system
 
 composer install
 php artisan key:generate
-
-### 2.  Собрать и запустить контейнеры:
-
+```
+### 2. Build and start Docker containers
+```bash
 docker-compose up --build -d
-
-### 3.Скопировать файл .env.example в .env
-
-### 4. Проверить настройки базы данных и убедится, что они соответствуют данным из docker-compose.yml
-
-### 5. Выполнить миграции и заполнить базу данных данными:
-
+```
+### 3.Environment configuration
+Copy the environment file:
+```bash
+cp .env.example .env
+```
+### 4. Run database migrations and seeders
+```bash
 docker exec -it management php artisan migrate --seed
+```
+### 5. Database Administration
 
-### 6. Администрирование базы данных (веб-приложение Adminer):
-
-Adminer доступен по адресу: http://localhost:8093
-
+The project includes Adminer for database management.
+```bash
+URL: http://localhost:8093
 сервер: db
 логин: root
 пароль: root
 база данных: management_db
+```
+### 6. API Documentation (Swagger)
 
-### 7. Сгенерировать документацию Swagger
-
+Generate Swagger documentation:
+```bash
 php artisan l5-swagger:generate
+```
+Swagger UI will be available at:
+```bash
+ http://localhost:8894/api/documentation# 
+```
+## 7. REST API Endpoints
+```bash
+GET   /api/resources - Get all resources  
+POST  /api/resources - Create a new resource 
+POST  /api/bookings  - Create a booking
+GET   /api/resources/{id}/bookings - Get all bookings for a resource
+DELETE /api/bookings/{id} - Cancel a booking 
+```
+## 8. Testing
 
-Перейти по адресу: http://localhost:8894/api/documentation# для просмотра документации Swagger
+To run automated tests:
+```bash
+php artisan test
+```
+## 9. Booking Events & Observers
 
-## 8. REST API Методы
+The project uses Laravel Observers to react to booking lifecycle events.
 
-GET   /api/resources - получение списка всех ресурсов  
-POST  /api/resources - cоздание ресурса   
-POST  /api/bookings  - cоздание бронирования  
-GET   /api/resources/{id}/bookings - получение всех бронирований для ресурса  
-DELETE /api/bookings/{id} - отмена бронирования  
+- When a booking is created or cancelled, a notification is logged
 
-## 9. Тестирование
+- Logs are written to:
+storage/logs/laravel.log
 
-для запуска тестов выполнить команду: php artisan test
+- This approach allows the system to be easily extended with:
 
-## 10. Использование Observer для уведомлений о создании или отмене бронирования.
+- Email notifications
 
-при создании или отмене бронирования, уведомления записываются в файл storage/logs/laravel.log
+- Webhooks
 
-## 11. Контакты
+- Message queues
 
-Если у вас есть вопросы по проекту, вы можете связаться со мной:
+- Event-driven integrations
 
+## 10. Contact
+
+If you have any questions about the project, feel free to reach out:
 telegram: @alexx108
